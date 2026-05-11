@@ -1,0 +1,30 @@
+SELECT customer_name, product_name, quantity
+ -> FROM Orders
+ -> INNER JOIN Customer ON Orders.customer_id = Customer.customer_id
+ -> INNER JOIN Product ON Orders.product_id = Product.product_id;
+SELECT customer_name, order_id, product_name
+ -> FROM Customer
+ -> LEFT JOIN Orders ON Customer.customer_id = Orders.customer_id
+ -> LEFT JOIN Product ON Orders.product_id = Product.product_id;
+SELECT product_name, customer_name
+ -> FROM Orders
+ -> RIGHT JOIN Product ON Orders.product_id = Product.product_id
+ -> LEFT JOIN Customer ON Orders.customer_id = Customer.customer_id;
+SELECT customer_name, product_name
+ -> FROM Customer
+ -> CROSS JOIN Product;
+SELECT A.customer_name AS 
+Customer1, B.customer_name AS Customer2, 
+A.city
+ -> FROM Customer A
+ -> JOIN Customer B
+ -> ON A.city = B.city
+ -> AND A.customer_id <> B.customer_id;
+CREATE VIEW Order_Details_View AS
+ -> SELECT order_id, customer_name, product_name, quantity, price,
+ -> (quantity * price) AS total_amount
+ -> FROM Orders
+ -> JOIN Customer ON Orders.customer_id = Customer.customer_id
+ -> JOIN Product ON Orders.product_id = Product.product_id;
+SELECT * FROM Order_Details_View;
+ desc Order_Details_View;
